@@ -10,6 +10,7 @@ export default function HomeLoggedIn({ onNavigate }: HomeLoggedInProps) {
     const [username, setUsername] = useState("");
     const [buttons, setButtons] = useState<number[]>([]);
     const [offset, setOffset] = useState(4);
+    const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
         const stored = localStorage.getItem("registeredUser");
@@ -114,10 +115,27 @@ export default function HomeLoggedIn({ onNavigate }: HomeLoggedInProps) {
 
             {/* Блок 4 */}
             <div className="absolute top-[320px] left-[300px] right-16 h-56 bg-gray-300 rounded-3xl shadow-lg flex items-center px-5 z-20">
-                <button className="w-40 h-48 bg-gray-400 rounded-2xl shadow-lg flex items-center justify-center text-6xl font-bold text-white">
+                <button className="w-40 h-48 bg-gray-400 rounded-2xl shadow-lg flex items-center justify-center text-6xl font-bold text-white"
+                     onClick={() => setShowModal(true)}
+                    >
                     +
                 </button>
             </div>
+        {/* 🧊 Модальное окно с размытым фоном */}
+      {showModal && (
+        <div className="fixed inset-0 bg-black/30 backdrop-blur-sm z-[999] flex items-center justify-center">
+          <div className="bg-white w-[35%] h-[75%] rounded-xl shadow-2xl p-6 relative">
+            <button
+              onClick={() => setShowModal(false)}
+              className="absolute top-4 right-4 text-gray-500 hover:text-black text-xl"
+            >
+              ✕
+            </button>
+            <h2 className="text-2xl font-bold mb-4">Добавление</h2>
+            <p className="text-gray-700">Здесь будет форма или действия.</p>
+          </div>
         </div>
-    );
+      )}
+    </div>
+  );
 }
